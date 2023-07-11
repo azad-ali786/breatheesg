@@ -37,8 +37,8 @@ body {
 }
 
 /* Navbar */
-.logo {
-  font-size: 24px;
+.logo > img {
+  height: 30px;
 }
 
 .auth-buttons > a > button {
@@ -125,4 +125,87 @@ body {
   #login-form {
     max-width: 100%;
   }
+}
+
+
+/* Sidebar */
+
+.sidebar {
+  height: 100vh;
+  background: #5FAF5F;
+;
+}
+
+.sidebar-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  margin-bottom: 24px;
+}
+
+.sidebar-logo-image {
+  height: 20px;
+  margin-right: 8px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 16px;
+  color: #fff;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 16px;
+  background:white;
+}
+
+.profile-name{
+  font-size: 12px;
+}
+
+
+.ant-menu {
+  background-color: #5FAF5F !important;
+  border-right: none;
+}
+
+.submenu {
+  background: #5faf5f !important;
+}
+
+.ant-menu-item,
+.ant-menu-submenu-title {
+  color: #fff;
+   background-color: #5faf5f;
+}
+
+.ant-menu-item-icon,
+.ant-menu-submenu-arrow {
+  color: #fff;
+}
+
+.ant-menu-submenu-popup {
+  background: #5FAF5F;
+}
+
+.submenu-popup {
+  background: #5faf5f !important;
+}
+
+.help-button {
+  margin-top: 300px;
+  background: #36A336;
 }

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
+import Sidebar from "../../components/Sidebar";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <h1>DB</h1>
+      <Sidebar></Sidebar>
     </>
   );
 };

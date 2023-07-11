@@ -8,7 +8,7 @@ const { Header } = Layout;
 const Navbar: React.FC = () => {
   return (
     <Header className="navbar">
-      <div className="logo">Logo</div>
+      <div className="logo"><img src="./logo.svg" alt="" /></div>
       <div className="auth-buttons">
         <a href="/">
           {" "}

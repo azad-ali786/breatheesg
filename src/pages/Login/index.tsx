@@ -95,7 +95,7 @@ const Login: React.FC = () => {
                 htmlType="submit"
                 className="login-form-button"
               >
-                LOGIN
+                LogIn
               </Button>
             </Form.Item>
 
