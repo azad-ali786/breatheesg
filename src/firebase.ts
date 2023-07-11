@@ -10,16 +10,12 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 const provider= new GoogleAuthProvider()
-export const signInWithGoogle= ()=>{  //Call this function to get the user data
-    signInWithPopup(auth, provider).then((result: any)=>{
-        console.log(result)
-    }).catch((error)=>{
-        console.log(error);
-    })
+export const signInWithGoogle= ()=>{  
+   return signInWithPopup(auth, provider)
 }
 export default app;
