@@ -60,7 +60,7 @@ const Signup: React.FC = () => {
             />
           </div>
           <Form
-            name="signup-form"
+            name="login-form"
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
