@@ -1,11 +1,11 @@
-*{
+* {
   box-sizing: border-box;
-  padding:0;
+  padding: 0;
   margin: 0;
 }
 body {
-  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue";
   background: #d9edff;
 }
 
@@ -13,11 +13,11 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
- 
+
 ::-webkit-scrollbar-track {
   background-color: #aaa;
 }
- 
+
 ::-webkit-scrollbar-thumb {
   background-color: #335ddc;
   border-radius: 8px;
@@ -45,7 +45,6 @@ body {
   margin-left: 10px;
 }
 
-
 /* Login Page */
 .login-page {
   display: flex;
@@ -60,7 +59,7 @@ body {
   flex-direction: row-reverse;
   max-width: 1000px;
   background-color: white;
-  box-shadow: 0 0 40px rgba(0,0,0,0.16);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.16);
   overflow: hidden;
   margin: 0 auto;
   border-radius: 12px;
@@ -76,7 +75,7 @@ body {
 }
 #login-form p.form-title {
   color: #333333;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-size: 28px;
   font-weight: bold;
   line-height: 1;
@@ -127,16 +126,14 @@ body {
   }
 }
 
-
 /* Sidebar */
 
 .sidebar {
   height: 100vh;
-  background: #5FAF5F;
-;
+  background: #5faf5f;
 }
 
-.sidebar-header{
+.sidebar-header {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -169,16 +166,15 @@ body {
   height: 40px;
   border-radius: 50%;
   margin-right: 16px;
-  background:white;
+  background: white;
 }
 
-.profile-name{
+.profile-name {
   font-size: 12px;
 }
 
-
 .ant-menu {
-  background-color: #5FAF5F !important;
+  background-color: #5faf5f !important;
   border-right: none;
 }
 
@@ -189,7 +185,7 @@ body {
 .ant-menu-item,
 .ant-menu-submenu-title {
   color: #fff;
-   background-color: #5faf5f;
+  background-color: #5faf5f;
 }
 
 .ant-menu-item-icon,
@@ -198,14 +194,88 @@ body {
 }
 
 .ant-menu-submenu-popup {
-  background: #5FAF5F;
+  background-color: #5faf5f;
 }
 
 .submenu-popup {
-  background: #5faf5f !important;
+  background-color: #5faf5f !important;
 }
-
+.ant-layout-sider-children {
+  background-color: #5faf5f !important;
+}
 .help-button {
   margin-top: 300px;
-  background: #36A336;
+  background-color: #36a336;
+}
+
+
+/* 
+Data Card */
+.data-card {
+  position: relative;
+  width: 600px;
+  background: #fff679;
+  font-weight: bold;
+}
+
+.card-header {
+  position: sticky;
+  top: 0;
+  border-radius: 5px 5px 0 0;
+  z-index: 1;
+  background: #ffed4e;
+  padding: 16px;
+  color: #d19132;
+}
+
+.card-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card-name {
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #d19132;
+  cursor: pointer;
+}
+
+.content-checkbox {
+  padding: 8px;
+  width: 200px;
+  border: #d19132 1px solid;
+  color: #d19132;
+  margin-right: 16px;
+}
+
+.content-accounting {
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.card-content {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  color: #d19132;
+}
+
+.ant-card-body {
+  padding: 0 !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: transparent !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after {
+  background-color: #5faf5f;
+  border-color: #5faf5f;
 }
