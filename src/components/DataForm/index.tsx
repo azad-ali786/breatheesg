@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, Input } from "antd";
+import { Button, Input, InputNumber } from "antd";
+import { postData } from "../../utils/apiUtils";
 
 interface DataFormProps {
   onSave: (data: any) => void;
@@ -7,25 +8,71 @@ interface DataFormProps {
 }
 
 const DataForm: React.FC<DataFormProps> = ({ onSave, onCancel }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    dimension: string;
+    topic: number;
+    disclosure_code: string;
+    disclosure_detail_code: string;
+    accounting_metric: string;
+    data_label: string;
+    data_type: string;
+    suggested_unit_of_measurement: number;
+    additional_information: string;
+  }>({
     dimension: "",
-    topic: "",
+    topic: 0,
     disclosure_code: "",
     disclosure_detail_code: "",
     accounting_metric: "",
     data_label: "",
     data_type: "",
-    suggested_unit_of_measurement: "",
+    suggested_unit_of_measurement: 0,
     additional_information: "",
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSave = () => {
-    onSave(formData);
+  const handleSave = async () => {
+    try {
+      const {
+        additional_information,
+        topic,
+        suggested_unit_of_measurement,
+        ...data
+      } = formData;
+      const postValues = {
+        data,
+        template: 0,
+        additional_information,
+        suggested_unit_of_measurement,
+        topic,
+      };
+
+      const response = await postData(postValues);
+
+      onSave(response);
+
+      setFormData({
+        dimension: "",
+        topic: 0,
+        disclosure_code: "",
+        disclosure_detail_code: "",
+        accounting_metric: "",
+        data_label: "",
+        data_type: "",
+        suggested_unit_of_measurement: 0,
+        additional_information: "",
+      });
+
+      onCancel();
+    } catch (error) {
+      console.error("Error occurred during data submission:", error);
+    }
   };
 
   const handleCancel = () => {
@@ -46,10 +93,15 @@ const DataForm: React.FC<DataFormProps> = ({ onSave, onCancel }) => {
         </div>
         <div className="form-row">
           <label>Topic:</label>
-          <Input
+          <InputNumber
             name="topic"
             value={formData.topic}
-            onChange={handleInputChange}
+            onChange={(value: number | null) =>
+              setFormData((prevFormData) => ({
+                ...prevFormData,
+                topic: value || 0,
+              }))
+            }
           />
         </div>
         <div className="form-row">
@@ -94,15 +146,20 @@ const DataForm: React.FC<DataFormProps> = ({ onSave, onCancel }) => {
         </div>
         <div className="form-row">
           <label>Suggested Unit of Measurement:</label>
-          <Input
+          <InputNumber
             name="suggested_unit_of_measurement"
             value={formData.suggested_unit_of_measurement}
-            onChange={handleInputChange}
+            onChange={(value: number | null) =>
+              setFormData((prevFormData) => ({
+                ...prevFormData,
+                suggested_unit_of_measurement: value || 0,
+              }))
+            }
           />
         </div>
         <div className="form-row">
           <label>Additional Information:</label>
-          <Input
+          <Input.TextArea
             name="additional_information"
             value={formData.additional_information}
             onChange={handleInputChange}

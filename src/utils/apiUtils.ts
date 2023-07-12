@@ -11,3 +11,16 @@ export const fetchData = async () => {
     throw error;
   }
 };
+
+export const postData = async (data:any) => {
+  try {
+    const response = await axios.post(
+      "https://testapiv1.breatheesg.com/api/v1/enterprise/breathe-esg-test/",
+      data
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Error posting data:", error);
+    throw error;
+  }
+};
