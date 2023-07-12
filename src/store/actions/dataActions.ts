@@ -61,7 +61,6 @@ export const savePostAction = (
     try {
       const response = await postData(post);
       dispatch(addPost(post));
-      alert(response);
     } catch (error) {
       console.log("Error saving post:", error);
     }
@@ -75,6 +74,7 @@ export const saveEditAction = (
     try {
       const response = await postData(post);
       dispatch(editPost(post));
+      alert(response);
     } catch (error) {
       console.log("Error saving edited post:", error);
     }
