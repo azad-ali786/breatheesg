@@ -3,12 +3,13 @@ import { connect, ConnectedProps } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
-import { Layout, Row, Col, Button } from "antd";
+import { Card, Layout, Row, Col, Button } from "antd";
 import Sidebar from "../../components/Sidebar";
 import DataCard from "../../components/DataCard";
 import { fetchDataAction } from "../../store/actions/dataActions";
 import { RootState } from "../../store/reducers/dataReducer";
 import DataForm from "../../components/DataForm";
+import { PlusOutlined } from "@ant-design/icons";
 
 const { Content } = Layout;
 
@@ -67,15 +68,11 @@ const Dashboard: React.FC<PropsFromRedux> = ({ fetchDataAction, data }) => {
   };
 
   const handleSaveData = (formData: any) => {
-    // Handle saving the form data to your store or perform any other necessary actions
     console.log(formData);
-
-    // Reset the form and hide it
     setShowDataForm(false);
   };
 
   const handleCancelDataForm = () => {
-    // Reset the form and hide it
     setShowDataForm(false);
   };
 
@@ -85,17 +82,27 @@ const Dashboard: React.FC<PropsFromRedux> = ({ fetchDataAction, data }) => {
       <Layout>
         <Content style={{ padding: "24px" }}>
           <Row gutter={[16, 16]}>
-            <Col span={24}>
-              {!showDataForm && (
-                <Button type="primary" onClick={handleShowDataForm}>
-                  Add Data
-                </Button>
-              )}
-            </Col>
-          </Row>
-          <Row gutter={[16, 16]}>
             <Col span={12}>
               <div className="data-cards-container">
+                {!showDataForm && (
+                  <Card className="data-card">
+                    <div className="card-header">
+                      <div className="card-header-content">
+                        <span className="card-name">Custom Disclosure</span>
+                      </div>
+                      <div className="card-content">
+                        <Button
+                          type="primary"
+                          onClick={handleShowDataForm}
+                          icon={<PlusOutlined />}
+                          className="custom-disclosure-btn"
+                        >
+                          New Custom Disclosure
+                        </Button>
+                      </div>
+                    </div>
+                  </Card>
+                )}
                 {mergedData.map((item: any) => (
                   <DataCard key={item.dimension} item={item} />
                 ))}
@@ -103,10 +110,10 @@ const Dashboard: React.FC<PropsFromRedux> = ({ fetchDataAction, data }) => {
             </Col>
             <Col span={12}>
               {showDataForm ? (
-                <>
-                  <DataForm onSave={handleSaveData} />
-                  <Button onClick={handleCancelDataForm}>Cancel</Button>
-                </>
+                <DataForm
+                  onSave={handleSaveData}
+                  onCancel={handleCancelDataForm}
+                />
               ) : null}
             </Col>
           </Row>

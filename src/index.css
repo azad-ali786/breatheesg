@@ -20,7 +20,8 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #335ddc;
+  background-color: #36A336;
+;
   border-radius: 8px;
 }
 
@@ -209,7 +210,6 @@ body {
   background-color: #36a336;
 }
 
-
 /* 
 Data Card */
 .data-card {
@@ -217,6 +217,7 @@ Data Card */
   width: 600px;
   background: #fff679;
   font-weight: bold;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .card-header {
@@ -281,7 +282,6 @@ Data Card */
   border-color: #5faf5f;
 }
 
-
 /* 
 Dashboard */
 
@@ -289,13 +289,22 @@ Dashboard */
   display: grid;
   grid-gap: 24px;
   overflow-y: auto;
-  max-height: calc(100vh - 56px); /* Adjust this value if you have a header or navigation bar */
+  max-height: calc(
+    100vh - 56px
+  ); /* Adjust this value if you have a header or navigation bar */
   overflow-x: hidden;
 }
 
-
 /* 
 Data Form */
+.data-form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  height: 92vh;
+  overflow: auto;
+  padding-bottom: 20px;
+}
+
 .data-form {
   max-width: 400px;
   margin: 0 auto;
@@ -304,6 +313,7 @@ Data Form */
 .data-form h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: #d19132;
 }
 
 .data-form .form-row {
@@ -314,12 +324,20 @@ Data Form */
   display: block;
   font-weight: bold;
   margin-bottom: 8px;
+  color: #d19132;
 }
 
 .data-form input {
   width: 100%;
 }
 
-.data-form .form-row .ant-btn {
-  background-color: #77DD77;
+.data-form .form-row.button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ant-btn {
+  background-color: #36A336;
+  color: white;
 }
