@@ -1,10 +1,12 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk, { ThunkMiddleware } from "redux-thunk";
-import rootReducer, { RootState } from "./reducers/dataReducer";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
+import rootReducer from "./reducers/dataReducer";
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk as ThunkMiddleware<RootState>)
-);
+const middleware = [...getDefaultMiddleware(), thunk];
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware,
+});
 
 export default store;

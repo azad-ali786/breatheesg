@@ -1,18 +1,29 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../reducers/dataReducer";
-import { fetchData } from "../../utils/apiUtils";
+import { fetchData, postData } from "../../utils/apiUtils";
 
 interface SetDataAction extends Action<"SET_DATA"> {
   payload: any[];
 }
 
-type DataActionTypes = SetDataAction;
+interface AddPostAction extends Action<"ADD_POST"> {
+  payload: any;
+}
+
+type DataActionTypes = SetDataAction | AddPostAction;
 
 export const setData = (data: any[]): SetDataAction => {
   return {
     type: "SET_DATA",
     payload: data,
+  };
+};
+
+export const addPost = (post: any): AddPostAction => {
+  return {
+    type: "ADD_POST",
+    payload: post,
   };
 };
 
@@ -22,13 +33,25 @@ export const fetchDataAction = (): ThunkAction<
   unknown,
   DataActionTypes
 > => {
-  return (dispatch) => {
-    fetchData()
-      .then((response) => {
-        dispatch(setData(response.data));
-      })
-      .catch((error) => {
-        console.log("Error fetching data:", error);
-      });
+  return async (dispatch) => {
+    try {
+      const response = await fetchData();
+      dispatch(setData(response.data));
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+};
+
+export const savePostAction = (
+  post: any
+): ThunkAction<void, RootState, unknown, DataActionTypes> => {
+  return async (dispatch) => {
+    try {
+      const response = await postData(post);
+      dispatch(addPost(post));
+    } catch (error) {
+      console.log("Error saving post:", error);
+    }
   };
 };

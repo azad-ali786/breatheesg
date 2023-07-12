@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Button, Input, InputNumber } from "antd";
-import { postData } from "../../utils/apiUtils";
+import { savePostAction } from "../../store/actions/dataActions";
+import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "../../store/reducers/dataReducer";
+import { Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
 
-interface DataFormProps {
+interface DataFormProps extends PropsFromRedux {
   onSave: (data: any) => void;
   onCancel: () => void;
 }
 
-const DataForm: React.FC<DataFormProps> = ({ onSave, onCancel }) => {
+const DataForm: React.FC<DataFormProps> = ({ onSave, onCancel, savePost }) => {
   const [formData, setFormData] = useState<{
     dimension: string;
     topic: number;
@@ -37,42 +41,20 @@ const DataForm: React.FC<DataFormProps> = ({ onSave, onCancel }) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSave = async () => {
-    try {
-      const {
-        additional_information,
-        topic,
-        suggested_unit_of_measurement,
-        ...data
-      } = formData;
-      const postValues = {
-        data,
-        template: 0,
-        additional_information,
-        suggested_unit_of_measurement,
-        topic,
-      };
-
-      const response = await postData(postValues);
-
-      onSave(response);
-
-      setFormData({
-        dimension: "",
-        topic: 0,
-        disclosure_code: "",
-        disclosure_detail_code: "",
-        accounting_metric: "",
-        data_label: "",
-        data_type: "",
-        suggested_unit_of_measurement: 0,
-        additional_information: "",
-      });
-
-      onCancel();
-    } catch (error) {
-      console.error("Error occurred during data submission:", error);
-    }
+  const handleSave = () => {
+    savePost(formData);
+    setFormData({
+      dimension: "",
+      topic: 0,
+      disclosure_code: "",
+      disclosure_detail_code: "",
+      accounting_metric: "",
+      data_label: "",
+      data_type: "",
+      suggested_unit_of_measurement: 0,
+      additional_information: "",
+    });
+    onCancel();
   };
 
   const handleCancel = () => {
@@ -176,4 +158,18 @@ const DataForm: React.FC<DataFormProps> = ({ onSave, onCancel }) => {
   );
 };
 
-export default DataForm;
+const mapStateToProps = (state: RootState) => ({
+  // Map state values if needed
+});
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<any>
+) => ({
+  savePost: (post: any) => dispatch(savePostAction(post)),
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(DataForm);

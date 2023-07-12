@@ -6,7 +6,10 @@ import { auth } from "../../firebase";
 import { Card, Layout, Row, Col, Button } from "antd";
 import Sidebar from "../../components/Sidebar";
 import DataCard from "../../components/DataCard";
-import { fetchDataAction } from "../../store/actions/dataActions";
+import {
+  fetchDataAction,
+  savePostAction,
+} from "../../store/actions/dataActions";
 import { RootState } from "../../store/reducers/dataReducer";
 import DataForm from "../../components/DataForm";
 import { PlusOutlined } from "@ant-design/icons";
@@ -15,7 +18,12 @@ const { Content } = Layout;
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-const Dashboard: React.FC<PropsFromRedux> = ({ fetchDataAction, data }) => {
+const Dashboard: React.FC<PropsFromRedux> = ({
+  fetchDataAction,
+  savePostAction,
+  data,
+  savedPosts,
+}) => {
   const navigate = useNavigate();
   const [showDataForm, setShowDataForm] = useState(false);
 
@@ -62,7 +70,7 @@ const Dashboard: React.FC<PropsFromRedux> = ({ fetchDataAction, data }) => {
   };
 
   const mergedData = mergeObjects(data);
-
+  console.log(savedPosts);
   const handleShowDataForm = () => {
     setShowDataForm(true);
   };
@@ -122,13 +130,13 @@ const Dashboard: React.FC<PropsFromRedux> = ({ fetchDataAction, data }) => {
     </Layout>
   );
 };
-
 const mapStateToProps = (state: RootState) => {
   return {
     data: state.data,
+    savedPosts: state.savedPosts,
   };
 };
 
-const connector = connect(mapStateToProps, { fetchDataAction });
+const connector = connect(mapStateToProps, { fetchDataAction, savePostAction });
 
 export default connector(Dashboard);

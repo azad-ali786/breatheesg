@@ -14,9 +14,22 @@ export const fetchData = async () => {
 
 export const postData = async (data:any) => {
   try {
+    const {
+      additional_information,
+      topic,
+      suggested_unit_of_measurement,
+      ...values
+    } = data;
+    const postValues = {
+      values,
+      template: 0,
+      additional_information,
+      suggested_unit_of_measurement,
+      topic,
+    };
     const response = await axios.post(
       "https://testapiv1.breatheesg.com/api/v1/enterprise/breathe-esg-test/",
-      data
+      postValues
     );
     return response.data;
   } catch (error) {
