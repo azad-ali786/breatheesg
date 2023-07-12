@@ -206,10 +206,13 @@ body {
   background-color: #5faf5f !important;
 }
 .help-button {
-  margin-top: 300px;
+  margin-top: 250px;
   background-color: #36a336;
 }
 
+.logout-button{
+  margin-top: 5px;
+}
 /* 
 Data Card */
 .data-card {
@@ -285,14 +288,32 @@ Data Card */
 /* 
 Dashboard */
 
+.dashboard-container {
+  padding: 24px;
+  border: 1px dotted #ccc;
+}
+
+
 .data-cards-container {
   display: grid;
   grid-gap: 24px;
   overflow-y: auto;
   max-height: calc(
     100vh - 56px
-  ); /* Adjust this value if you have a header or navigation bar */
+  ); 
   overflow-x: hidden;
+}
+
+.edit-section {
+  margin-top: 10px;
+}
+
+.edit-section input {
+  margin-bottom: 10px;
+}
+
+.edit-section button {
+  margin-right: 10px;
 }
 
 /* 

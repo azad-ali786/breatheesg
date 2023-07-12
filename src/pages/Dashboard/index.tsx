@@ -9,6 +9,7 @@ import DataCard from "../../components/DataCard";
 import {
   fetchDataAction,
   savePostAction,
+  saveEditAction
 } from "../../store/actions/dataActions";
 import { RootState } from "../../store/reducers/dataReducer";
 import DataForm from "../../components/DataForm";
@@ -53,6 +54,8 @@ const Dashboard: React.FC<PropsFromRedux> = ({
         dimension: arr[i].dimension,
         disclosure_code: "",
         accounting_metric: "",
+        topic: arr[i].topic,
+        additional_information: arr[i].additional_information,
       };
 
       for (let j = 0; j < 5; j++) {
@@ -70,7 +73,6 @@ const Dashboard: React.FC<PropsFromRedux> = ({
   };
 
   const mergedData = mergeObjects(data);
-  console.log(savedPosts);
   const handleShowDataForm = () => {
     setShowDataForm(true);
   };
@@ -111,8 +113,19 @@ const Dashboard: React.FC<PropsFromRedux> = ({
                     </div>
                   </Card>
                 )}
+                {savedPosts.map((item: any) => (
+                  <DataCard
+                    key={item.dimension}
+                    saveEditAction={saveEditAction}
+                    item={item}
+                  />
+                ))}
                 {mergedData.map((item: any) => (
-                  <DataCard key={item.dimension} item={item} />
+                  <DataCard
+                    key={item.dimension}
+                    saveEditAction={saveEditAction}
+                    item={item}
+                  />
                 ))}
               </div>
             </Col>

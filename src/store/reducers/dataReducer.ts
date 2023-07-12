@@ -3,22 +3,28 @@ import { Action } from "redux";
 export interface RootState {
   data: any[];
   savedPosts: any[];
+  editedPost: any | null; // New state for editedPost
 }
 
 const initialState: RootState = {
   data: [],
   savedPosts: [],
+  editedPost: null, // Initialize editedPost as null
 };
 
-interface SetDataAction extends Action<"SET_DATA"> {
+export interface SetDataAction extends Action<"SET_DATA"> {
   payload: any[];
 }
 
-interface AddPostAction extends Action<"ADD_POST"> {
+export interface AddPostAction extends Action<"ADD_POST"> {
   payload: any;
 }
 
-type DataActionTypes = SetDataAction | AddPostAction;
+export interface EditPostAction extends Action<"EDIT_POST"> {
+  payload: any;
+}
+
+export type DataActionTypes = SetDataAction | AddPostAction | EditPostAction; // Include EditPostAction in union type
 
 const dataReducer = (
   state = initialState,
@@ -35,10 +41,14 @@ const dataReducer = (
         ...state,
         savedPosts: [...state.savedPosts, action.payload],
       };
+    case "EDIT_POST": // Handle EditPostAction
+      return {
+        ...state,
+        editedPost: action.payload,
+      };
     default:
       return state;
   }
 };
 
 export default dataReducer;
-export type { SetDataAction, AddPostAction, DataActionTypes };

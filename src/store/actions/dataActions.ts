@@ -11,7 +11,11 @@ interface AddPostAction extends Action<"ADD_POST"> {
   payload: any;
 }
 
-type DataActionTypes = SetDataAction | AddPostAction;
+interface EditPostAction extends Action<"EDIT_POST"> {
+  payload: any;
+}
+
+type DataActionTypes = SetDataAction | AddPostAction | EditPostAction;
 
 export const setData = (data: any[]): SetDataAction => {
   return {
@@ -23,6 +27,13 @@ export const setData = (data: any[]): SetDataAction => {
 export const addPost = (post: any): AddPostAction => {
   return {
     type: "ADD_POST",
+    payload: post,
+  };
+};
+
+export const editPost = (post: any): EditPostAction => {
+  return {
+    type: "EDIT_POST",
     payload: post,
   };
 };
@@ -50,8 +61,22 @@ export const savePostAction = (
     try {
       const response = await postData(post);
       dispatch(addPost(post));
+      alert(response);
     } catch (error) {
       console.log("Error saving post:", error);
+    }
+  };
+};
+
+export const saveEditAction = (
+  post: any
+): ThunkAction<void, RootState, unknown, DataActionTypes> => {
+  return async (dispatch) => {
+    try {
+      const response = await postData(post);
+      dispatch(editPost(post));
+    } catch (error) {
+      console.log("Error saving edited post:", error);
     }
   };
 };

@@ -1,21 +1,33 @@
 import React, { useState } from "react";
 import { Layout, Menu, Button } from "antd";
+import { useNavigate } from "react-router-dom";
 import {
   FileAddOutlined,
   FileSearchOutlined,
   BankOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
+import { logout } from "../../firebase";
 import Profile from "../Profile";
 
 const { Sider } = Layout;
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout().then(() => navigate("/"));
+    } catch (error) {
+      console.log("Error logging out:", error);
+    }
   };
 
   return (
@@ -36,7 +48,7 @@ const Sidebar = () => {
           )}
         </div>
       </div>
-      <Profile collapsed={collapsed}/>
+      <Profile collapsed={collapsed} />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
         <Menu.SubMenu key="1" icon={<BankOutlined />} title="ESG">
           <Menu.Item key="2" icon={<FileAddOutlined />}>
@@ -51,9 +63,19 @@ const Sidebar = () => {
         </Menu.Item>
       </Menu>
       {!collapsed ? (
-        <Button block className="help-button">
-          Go To Help Center
-        </Button>
+        <>
+          <Button block className="help-button">
+            Go To Help Center
+          </Button>
+          <Button
+            block
+            className="logout-button"
+            onClick={handleLogout}
+            icon={<LogoutOutlined />}
+          >
+            Logout
+          </Button>
+        </>
       ) : (
         ""
       )}
