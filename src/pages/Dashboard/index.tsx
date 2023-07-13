@@ -9,7 +9,7 @@ import DataCard from "../../components/DataCard";
 import {
   fetchDataAction,
   savePostAction,
-  saveEditAction
+  saveEditAction,
 } from "../../store/actions/dataActions";
 import { RootState } from "../../store/reducers/dataReducer";
 import DataForm from "../../components/DataForm";
@@ -90,59 +90,62 @@ const Dashboard: React.FC<PropsFromRedux> = ({
     <Layout style={{ minHeight: "100vh" }}>
       <Sidebar />
       <Layout>
-        <Content style={{ padding: "24px" }}>
-          <Row gutter={[16, 16]}>
-            <Col span={12}>
-              <div className="data-cards-container">
-                {!showDataForm && (
-                  <Card className="data-card">
-                    <div className="card-header">
-                      <div className="card-header-content">
-                        <span className="card-name">Custom Disclosure</span>
+        <Content className="custom-content-container">
+          <Content className="custom-content">
+            <Row gutter={[16, 16]}>
+              <Col span={12}>
+                <div className="data-cards-container">
+                  {!showDataForm && (
+                    <Card className="data-card">
+                      <div className="card-header">
+                        <div className="card-header-content">
+                          <span className="card-name">Custom Disclosure</span>
+                        </div>
+                        <div className="card-content">
+                          <Button
+                            type="primary"
+                            onClick={handleShowDataForm}
+                            icon={<PlusOutlined />}
+                            className="custom-disclosure-btn"
+                          >
+                            New Custom Disclosure
+                          </Button>
+                        </div>
                       </div>
-                      <div className="card-content">
-                        <Button
-                          type="primary"
-                          onClick={handleShowDataForm}
-                          icon={<PlusOutlined />}
-                          className="custom-disclosure-btn"
-                        >
-                          New Custom Disclosure
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
-                )}
-                {savedPosts.map((item: any) => (
-                  <DataCard
-                    key={item.dimension}
-                    saveEditAction={saveEditAction}
-                    item={item}
+                    </Card>
+                  )}
+                  {savedPosts.map((item: any) => (
+                    <DataCard
+                      key={item.dimension}
+                      saveEditAction={saveEditAction}
+                      item={item}
+                    />
+                  ))}
+                  {mergedData.map((item: any) => (
+                    <DataCard
+                      key={item.dimension}
+                      saveEditAction={saveEditAction}
+                      item={item}
+                    />
+                  ))}
+                </div>
+              </Col>
+              <Col span={12}>
+                {showDataForm ? (
+                  <DataForm
+                    onSave={handleSaveData}
+                    onCancel={handleCancelDataForm}
                   />
-                ))}
-                {mergedData.map((item: any) => (
-                  <DataCard
-                    key={item.dimension}
-                    saveEditAction={saveEditAction}
-                    item={item}
-                  />
-                ))}
-              </div>
-            </Col>
-            <Col span={12}>
-              {showDataForm ? (
-                <DataForm
-                  onSave={handleSaveData}
-                  onCancel={handleCancelDataForm}
-                />
-              ) : null}
-            </Col>
-          </Row>
+                ) : null}
+              </Col>
+            </Row>
+          </Content>
         </Content>
       </Layout>
     </Layout>
   );
 };
+
 const mapStateToProps = (state: RootState) => {
   return {
     data: state.data,
