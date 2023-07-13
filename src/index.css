@@ -34,7 +34,7 @@ body {
   border-radius: 2vh;
   align-items: center;
   padding: 0 20px;
-  background: #d9edff;
+  background: transparent;
   color: #fff;
 }
 
@@ -364,7 +364,7 @@ Data Form */
 }
 .custom-content {
   padding: 24px;
-  background-color: rgba(193, 169, 169, 0.382);
+  background-color: #EAEAEA;
   margin: 20px;
   height: 90vh;
   overflow-y: hidden;
